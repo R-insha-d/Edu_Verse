@@ -138,7 +138,7 @@ const Landing = () => {
         {loading && <Preloader key="preloader" />}
       </AnimatePresence>
 
-      <div className={`min-h-screen bg-slate-50 font-sans antialiased overflow-x-hidden selection:bg-blue-100 selection:text-blue-900 ${loading ? 'h-screen overflow-hidden' : ''}`}>
+      <div className={`min-h-screen bg-slate-50 font-sans antialiased overflow-x-hidden selection:bg-blue-100 selection:text-blue-900 ${loading ? 'h-screen overflow-hidden' : ''}`} id='main' >
         {/* Premium Background Elements */}
         <div className="fixed inset-0 pointer-events-none z-0">
           <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-blue-400/30 blur-[150px] rounded-full animate-pulse" />
@@ -158,7 +158,7 @@ const Landing = () => {
                 <div className="w-9 h-9 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-xl flex items-center justify-center text-white shadow-lg shadow-blue-500/30 group-hover:rotate-12 transition-transform duration-300">
                   <GraduationCap className="w-5 h-5" />
                 </div>
-                <span className="text-xl font-black tracking-tight text-slate-900 uppercase">Edu<span className="text-blue-600">Verse</span></span>
+                <a href='#main'><span className="text-xl font-black tracking-tight text-slate-900 uppercase">Edu<span className="text-blue-600">Verse</span></span></a>
               </motion.div>
               
               <div className="hidden md:flex items-center gap-10">

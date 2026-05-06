@@ -1,18 +1,21 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { 
-  LayoutDashboard, 
-  BookOpen, 
-  Calendar, 
-  CheckSquare, 
-  Bell, 
+import {
+  LayoutDashboard,
+  BookOpen,
+  Calendar,
+  CheckSquare,
+  Bell,
   User,
   GraduationCap
 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const StudentSidebar = () => {
   const location = useLocation();
+  const navigate = useNavigate()
 
   const menuItems = [
     { icon: LayoutDashboard, label: 'Dashboard', path: '/student' },
@@ -41,12 +44,19 @@ const StudentSidebar = () => {
     visible: { opacity: 1, x: 0 }
   };
 
+  const handleLogout = () =>{
+    sessionStorage.clear()
+    toast.success("Logout successful")
+    navigate('/auth')
+  }
+
   return (
-    <motion.div 
+    <motion.div
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      className="w-64 bg-emerald-900 text-white h-screen flex flex-col sticky top-0 shrink-0"
+      // className="w-64 bg-emerald-900 text-white h-screen flex flex-col sticky top-0 shrink-0"
+      className="w-64 bg-emerald-900 text-white h-full md:h-screen flex flex-col shrink-0"
     >
       <div className="p-6 flex items-center gap-3 shrink-0">
         <motion.div
@@ -58,7 +68,7 @@ const StudentSidebar = () => {
         </motion.div>
         <span className="text-xl font-bold tracking-tight text-white">EduVerse Student</span>
       </div>
-      
+
       <nav className="flex-1 px-4 py-4 space-y-1 overflow-y-auto">
         {menuItems.map((item) => {
           const isActive = location.pathname === item.path;
@@ -66,11 +76,10 @@ const StudentSidebar = () => {
             <motion.div key={item.path} variants={itemVariants}>
               <Link
                 to={item.path}
-                className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all group ${
-                  isActive 
-                    ? 'bg-emerald-700 text-white shadow-lg shadow-emerald-900/50' 
+                className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all group ${isActive
+                    ? 'bg-emerald-700 text-white shadow-lg shadow-emerald-900/50'
                     : 'text-emerald-100 hover:bg-emerald-800 hover:text-white'
-                }`}
+                  }`}
               >
                 <motion.div
                   whileHover={{ scale: 1.2, rotate: 5 }}
@@ -80,7 +89,7 @@ const StudentSidebar = () => {
                 </motion.div>
                 <span className="font-medium">{item.label}</span>
                 {isActive && (
-                  <motion.div 
+                  <motion.div
                     layoutId="activeTab"
                     className="ml-auto w-1.5 h-1.5 rounded-full bg-emerald-300 shadow-[0_0_8px_rgba(110,231,183,0.6)]"
                   />
@@ -91,12 +100,12 @@ const StudentSidebar = () => {
         })}
       </nav>
 
-      <motion.div 
+      <motion.div
         variants={itemVariants}
         className="p-4 border-t border-emerald-800 shrink-0 bg-emerald-950/50"
       >
         <div className="flex items-center gap-3 px-4 py-2 group cursor-pointer">
-          <motion.div 
+          <motion.div
             whileHover={{ scale: 1.1 }}
             className="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center font-bold border-2 border-emerald-400 text-white shadow-lg"
           >
@@ -106,6 +115,11 @@ const StudentSidebar = () => {
             <p className="text-sm font-semibold text-white">Alex Johnson</p>
             <p className="text-xs text-emerald-300">Grade 12 - Science</p>
           </div>
+        </div>
+        <div className="flex items-center gap-3 px-4 py-2 group cursor-pointer">
+          <button onClick={handleLogout} className="w-full bg-emerald-900 cursor-pointer hover:bg-red-600 text-white px-4 py-2 rounded-lg transition">
+            Logout
+          </button>
         </div>
       </motion.div>
     </motion.div>
